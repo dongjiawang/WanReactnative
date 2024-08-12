@@ -4,7 +4,7 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 >
 >Ruby 3.3.4
 >
->node@18
+>node@20 20.16.0
 >
 >JDK 由 Azul 提供的 名为 Zulu 的 OpenJDK 发行版（brew install --cask zulu@17）
 >
