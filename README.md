@@ -1,5 +1,16 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
+# 目前依赖环境为
+>
+>Ruby 3.3.4
+>
+>node@18
+>
+>JDK 由 Azul 提供的 名为 Zulu 的 OpenJDK 发行版（brew install --cask zulu@17）
+>
+> React Native 当前需要 Java Development Kit [JDK] 17，不建议使用更高版本或更低版本，可能会碰到问题。你可以在命令行中输入 javac -version（请注意是 javac，不是 java）来查看你当前安装的 JDK 版本。
+
+
 # Getting Started
 
 >**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
