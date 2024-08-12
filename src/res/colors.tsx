@@ -1,0 +1,42 @@
+const Colors = {
+  light: {
+    window_background: '#FAFAFA',
+    white: '#FFFFFF',
+    translucent_black_40: '#66000000',
+    translucent_black_50: '#80000000',
+    themeColor: '#4184F2',
+    text_h1: '#212121',
+    text_h2: '#757575',
+    divider: '#EEEEEE',
+    tab_unselect: '#424242',
+    tab_background: '#FFFFFF',
+    navigation_bar_background: '#4184F2',
+    navigation_text: '#FFFFFF',
+    hot_key_background: '#F2F2F2',
+    search_input_placeholder: '#B3B3B3',
+  },
+  dark: {
+    window_background: '#303030',
+    white: '#424242',
+    translucent_black_40: '#66000000',
+    translucent_black_50: '#80000000',
+    themeColor: '#4184F2',
+    text_h1: '#E0E0E0',
+    text_h2: '#B0B0B0',
+    divider: '#424242',
+    tab_unselect: '#6A6A6A',
+    tab_background: '#424242',
+    navigation_bar_background: '#424242',
+    navigation_text: '#E0E0E0',
+    hot_key_background: '#4A4A4A',
+    search_input_placeholder: '#A9A9A9',
+  },
+
+  red: '#F44336',
+  blue: '#2196F3',
+  green: '#4CAF50',
+  cyan: '#00BCD4',
+  teal: '#009688',
+};
+
+export default Colors;
