@@ -1,16 +1,16 @@
 import {Cookie} from './cookie';
 import CookieUtil from './CookieUtil';
-import KVCookiePersistor from './KVCookiePersistor';
+import KVCookiePersister from './KVCookiePersistor';
 
-class PersistenCookieJar {
-  static saveFromResponse(url: URL, cookies: Cookie[]) {
-    KVCookiePersistor.saveAll(
-      PersistenCookieJar.filterPersistentCookies(cookies),
+class PersistentCookieJar {
+  static saveFromResponse(cookies: Cookie[]) {
+    KVCookiePersister.saveAll(
+      PersistentCookieJar.filterPersistentCookies(cookies),
     );
   }
 
   static async loadForRequest(): Promise<Cookie[]> {
-    const cookies = await KVCookiePersistor.loadAll();
+    const cookies = await KVCookiePersister.loadAll();
 
     return cookies.filter(cookie => {
       return !CookieUtil.isExpired(cookie);
@@ -18,7 +18,7 @@ class PersistenCookieJar {
   }
 
   static clear() {
-    KVCookiePersistor.clear();
+    KVCookiePersister.clear();
   }
 
   private static filterPersistentCookies(cookies: Cookie[]): Cookie[] {
@@ -28,4 +28,4 @@ class PersistenCookieJar {
   }
 }
 
-export default PersistenCookieJar;
+export default PersistentCookieJar;
