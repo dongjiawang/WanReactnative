@@ -2,6 +2,7 @@ import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse} from 'axios';
 import CookieUtil from '../cookie/CookieUtil';
 import PersistedCookieJar from '../cookie/PersistentCookieJar';
 import {BaseResponse} from './baseResponse';
+import Toast from 'react-native-toast-message';
 
 interface HttpRequestConfig extends AxiosRequestConfig {
   showLoading?: boolean; //是否展示请求loading
@@ -53,6 +54,11 @@ class Network {
             response.errorMsg = `HTTP ${res.status}, ${JSON.stringify(
               res.data,
             )}`;
+            Toast.show({
+              type: 'info',
+              text1: response.errorMsg,
+              position: 'bottom',
+            });
             reject(response);
           }
         })

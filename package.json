@@ -17,6 +17,8 @@
     "@rneui/base": "^4.0.0-rc.8",
     "@rneui/themed": "^4.0.0-rc.8",
     "axios": "^1.7.3",
+    "mobx": "^6.13.1",
+    "mobx-react-lite": "^4.0.7",
     "react": "18.2.0",
     "react-native": "^0.74.5",
     "react-native-elements": "^3.4.3",

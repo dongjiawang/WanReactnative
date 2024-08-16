@@ -11,6 +11,8 @@ import React, {useEffect} from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {AppRouter} from './src/route/router';
 import StatusBarManager from './src/utils/StatusBarManager';
+import Toast from 'react-native-toast-message';
+import Loading from './src/component/loadingContainer';
 
 function App(): JSX.Element {
   // const isDarkMode = useColorScheme() === 'dark';
@@ -27,6 +29,8 @@ function App(): JSX.Element {
   return (
     <NavigationContainer>
       <AppRouter />
+      <Loading />
+      <Toast />
     </NavigationContainer>
   );
 }
