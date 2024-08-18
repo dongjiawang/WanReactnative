@@ -21,7 +21,7 @@ const TitleBar: React.FC<{
       alignItems: 'center',
     },
 
-    titleContainer: {        
+    titleContainer: {
       flex: 1,
       paddingTop: statusBarHeight,
       justifyContent: 'center',
@@ -36,6 +36,8 @@ const TitleBar: React.FC<{
     },
 
     backIcon: {
+      paddingTop: statusBarHeight,
+      paddingLeft: 15,
       position: 'absolute',
       left: 0,
     },

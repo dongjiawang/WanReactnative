@@ -6,6 +6,7 @@ import {
 import SplashPage from '../page/splashPage';
 import MainPage from '../page/mainPage';
 import {RouteProp} from '@react-navigation/native';
+import ArticleDetailPage from '../page/articleDetailPage';
 
 /**路由名称 */
 export const Splash = 'splash';
@@ -14,11 +15,13 @@ export const Home = 'home';
 export const Question = 'question';
 export const Tree = 'tree';
 export const Mine = 'mine';
+export const ArticleDetail = 'articleDetail';
 
 /**路由参数 */
 export type RootStackParamList = {
   [Splash]: undefined;
   [Main]: undefined;
+  [ArticleDetail]: {link: string};
 };
 
 export type NavigateProps<RouteName extends keyof RootStackParamList> = {
@@ -87,6 +90,7 @@ const AppRouter = () => {
       }}>
       <Stack.Screen name={Splash} component={SplashPage} />
       <Stack.Screen name={Main} component={MainPage} />
+      <Stack.Screen name={ArticleDetail} component={ArticleDetailPage} />
     </Stack.Navigator>
   );
 };

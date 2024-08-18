@@ -8,7 +8,9 @@ import CommonFooter from '../../component/CommonFooter';
 import ArticleItemComponent from '../../component/ArticleItemComponent';
 import {getHotArticleList} from '../../network/apiService';
 import GlobalStore from '../../store/GlobalStore';
+import {useNavigation} from '@react-navigation/native';
 import LogUtil from '../../utils/LogUtil';
+import {ArticleDetail} from '../../route/router';
 
 const HomePage = () => {
   const [viewState, setViewState] = useState(LoadState.LOADING);
@@ -17,6 +19,8 @@ const HomePage = () => {
   const [dataList, setDataList] = useState<ArticleModel[]>([]);
   const [nextPage, setNextPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+
+  const navigation = useNavigation();
 
   const loadData = async () => {
     if (dataList.length === 0) {
@@ -80,7 +84,8 @@ const HomePage = () => {
   };
 
   const articlePress = (article: ArticleModel) => {
-    LogUtil.info(article.title);
+    // @ts-expect-error
+    navigation.navigate(ArticleDetail, {link: article.link});
   };
 
   const articleCollect = (article: ArticleModel) => {
