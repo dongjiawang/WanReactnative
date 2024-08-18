@@ -8,6 +8,7 @@ import CommonFooter from '../../component/CommonFooter';
 import ArticleItemComponent from '../../component/ArticleItemComponent';
 import {getHotArticleList} from '../../network/apiService';
 import GlobalStore from '../../store/GlobalStore';
+import LogUtil from '../../utils/LogUtil';
 
 const HomePage = () => {
   const [viewState, setViewState] = useState(LoadState.LOADING);
@@ -78,13 +79,27 @@ const HomePage = () => {
     }
   };
 
+  const articlePress = (article: ArticleModel) => {
+    LogUtil.info(article.title);
+  };
+
+  const articleCollect = (article: ArticleModel) => {
+    LogUtil.info(article.niceDate);
+  };
+
   return (
     <View style={styles.container}>
-      <TitleBar title="首页" showBackIcon={false} />
+      <TitleBar title="热门博文" showBackIcon={false} />
       <PageLoading loadingState={viewState} onReload={loadData}>
         <FlatList
           data={dataList}
-          renderItem={({item}) => <ArticleItemComponent article={item} />}
+          renderItem={({item}) => (
+            <ArticleItemComponent
+              article={item}
+              onArticlePress={() => articlePress(item)}
+              onCollectPress={() => articleCollect(item)}
+            />
+          )}
           keyExtractor={(item, index) => `${item.id} + ${index}`}
           refreshControl={
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />

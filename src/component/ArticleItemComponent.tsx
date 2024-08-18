@@ -9,58 +9,69 @@ import {StyleSheet, Text, View} from 'react-native';
 import Colors from '../res/colors';
 import {Divider} from 'react-native-elements';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {Pressable} from 'react-native';
 
 const ArticleItemComponent: React.FC<{
   article: ArticleModel;
-}> = ({article}) => {
+  onArticlePress: () => void;
+  onCollectPress: () => void;
+}> = ({article, onArticlePress, onCollectPress}) => {
   return (
-    <View style={articleItemStyle.container}>
-      {/* 第一部分，显示： 新 标识、作者、日期 */}
-      <View style={articleItemStyle.topRow}>
-        {article.fresh ? <Text style={articleItemStyle.fresh}>新</Text> : null}
-        <Text style={articleItemStyle.author}>{getArticleAuthor(article)}</Text>
-        {/* 根据标签数量创建多个 text */}
-        {article.tags.map((tag, index) => (
-          <Text
-            key={index}
-            style={[
-              articleItemStyle.tag,
-              {color: getTagColor(tag), borderColor: getTagColor(tag)},
-            ]}>
-            {tag.name}
+    <Pressable onPress={onArticlePress}>
+      <View style={articleItemStyle.container}>
+        {/* 第一部分，显示： 新 标识、作者、日期 */}
+        <View style={articleItemStyle.topRow}>
+          {article.fresh ? (
+            <Text style={articleItemStyle.fresh}>新</Text>
+          ) : null}
+          <Text style={articleItemStyle.author}>
+            {getArticleAuthor(article)}
           </Text>
-        ))}
-        <Text style={articleItemStyle.date}>{article.niceDate}</Text>
-      </View>
-      {/* 第二部分，显示： 标题或简介 */}
-      <Text
-        style={articleItemStyle.title}
-        numberOfLines={2}
-        ellipsizeMode="clip">
-        {article.title}
-      </Text>
-      {article.desc ? (
+          {/* 根据标签数量创建多个 text */}
+          {article.tags.map((tag, index) => (
+            <Text
+              key={index}
+              style={[
+                articleItemStyle.tag,
+                {color: getTagColor(tag), borderColor: getTagColor(tag)},
+              ]}>
+              {tag.name}
+            </Text>
+          ))}
+          <Text style={articleItemStyle.date}>{article.niceDate}</Text>
+        </View>
+        {/* 第二部分，显示： 标题或简介 */}
         <Text
-          style={articleItemStyle.desc}
+          style={articleItemStyle.title}
           numberOfLines={2}
           ellipsizeMode="tail">
-          {article.desc}
+          {article.title}
         </Text>
-      ) : null}
+        {article.desc ? (
+          <Text
+            style={articleItemStyle.desc}
+            numberOfLines={2}
+            ellipsizeMode="tail">
+            {article.desc}
+          </Text>
+        ) : null}
 
-      {/* 第三部分，显示： 章节 收藏 删除等 */}
-      <View style={articleItemStyle.BottomRow}>
-        <Text style={articleItemStyle.chapter}>
-          {getArticleChapter(article)}
-        </Text>
-        <Ionicons
-          name={article.collect ? 'heart' : 'heart-outline'}
-          color={Colors.red}
-          size={30}
-        />
+        {/* 第三部分，显示： 章节 收藏 删除等 */}
+        <View style={articleItemStyle.BottomRow}>
+          <Text style={articleItemStyle.chapter}>
+            {getArticleChapter(article)}
+          </Text>
+          <Pressable onPress={onCollectPress}>
+            <Ionicons
+              name={article.collect ? 'heart' : 'heart-outline'}
+              color={Colors.red}
+              size={30}
+            />
+          </Pressable>
+        </View>
+        <Divider style={articleItemStyle.divider} />
       </View>
-      <Divider style={articleItemStyle.divider} />
-    </View>
+    </Pressable>
   );
 };
 
