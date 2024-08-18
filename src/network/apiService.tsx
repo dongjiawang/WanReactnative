@@ -1,9 +1,11 @@
+import {ArticleListModel} from '../model/articleModel';
 import {UserModel} from '../model/userModel';
+import {BaseResponse} from './baseResponse';
 import Network from './network';
 
 const baseUrl = 'https://www.wanandroid.com';
 
-function login(username: string, password: string) {
+export function login(username: string, password: string) {
   return Network.post<UserModel>({
     url: baseUrl + '/user/login',
     params: {
@@ -13,10 +15,16 @@ function login(username: string, password: string) {
   });
 }
 
-function logout() {
+export function logout() {
   return Network.get<string>({
     url: baseUrl + '/user/logout/json',
   });
 }
 
-export default {login, logout};
+export function getHotArticleList(
+  page: number,
+): Promise<BaseResponse<ArticleListModel>> {
+  return Network.get<ArticleListModel>({
+    url: baseUrl + `/article/list/${page}/json`,
+  });
+}

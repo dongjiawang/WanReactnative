@@ -4,7 +4,6 @@ const Colors = {
     white: '#FFFFFF',
     translucent_black_40: '#66000000',
     translucent_black_50: '#80000000',
-    themeColor: '#4184F2',
     text_h1: '#212121',
     text_h2: '#757575',
     divider: '#EEEEEE',
@@ -20,7 +19,6 @@ const Colors = {
     white: '#424242',
     translucent_black_40: '#66000000',
     translucent_black_50: '#80000000',
-    themeColor: '#4184F2',
     text_h1: '#E0E0E0',
     text_h2: '#B0B0B0',
     divider: '#424242',
@@ -32,6 +30,7 @@ const Colors = {
     search_input_placeholder: '#A9A9A9',
   },
 
+  themeColor: '#4184F2',
   red: '#F44336',
   blue: '#2196F3',
   green: '#4CAF50',

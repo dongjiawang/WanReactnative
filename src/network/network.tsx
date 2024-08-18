@@ -22,50 +22,70 @@ class Network {
   async request<T = any>(config: AxiosRequestConfig): Promise<BaseResponse<T>> {
     const cookies = await PersistedCookieJar.loadForRequest();
 
-    return new Promise<BaseResponse<T>>((resolve, reject) => {
-      this.instance
-        .request<any, AxiosResponse>({
-          ...config,
-          headers: {
-            'Content-Type':
-              config.method === 'POST'
-                ? 'application/x-www-form-urlencoded'
-                : "'application/json'",
-            Cookie: CookieUtil.cookieHeader(cookies),
-          },
-        })
-        .then(res => {
-          const response = new BaseResponse<T>();
-          if (res.status === 200) {
-            const cookieString = res.headers['set-cookie']?.join('\r\n');
-            if (cookieString) {
-              PersistedCookieJar.saveFromResponse(
-                CookieUtil.parseHttpRequestCookies(cookieString),
-              );
-            }
+    try {
+      const response = await this.instance.request<any, AxiosResponse>({
+        ...config,
+        headers: {
+          'Content-Type':
+            config.method === 'POST'
+              ? 'application/x-www-form-urlencoded'
+              : 'application/json',
+          Cookie: CookieUtil.cookieHeader(cookies),
+        },
+      });
 
-            const result = JSON.parse(res.data) as BaseResponse<T>;
-            response.errorCode = result.errorCode;
-            response.errorMsg = result.errorMsg;
-            response.data = result.data;
-            resolve(response);
-          } else {
-            response.errorCode = res.status;
-            response.errorMsg = `HTTP ${res.status}, ${JSON.stringify(
-              res.data,
-            )}`;
-            Toast.show({
-              type: 'info',
-              text1: response.errorMsg,
-              position: 'bottom',
-            });
-            reject(response);
-          }
-        })
-        .catch(err => {
-          reject(err);
+      if (response.status === 200) {
+        const cookieString = response.headers['set-cookie']?.join('\r\n');
+        if (cookieString) {
+          PersistedCookieJar.saveFromResponse(
+            CookieUtil.parseHttpRequestCookies(cookieString),
+          );
+        }
+
+        const result = Network.safeJsonParse<BaseResponse<T>>(response.data);
+        if (result) {
+          return result;
+        }
+        return new BaseResponse<T>();
+      } else {
+        const errorResponse = new BaseResponse<T>();
+        errorResponse.errorCode = response.status;
+        errorResponse.errorMsg = `HTTP ${response.status}, ${JSON.stringify(
+          response.data,
+        )}`;
+        Toast.show({
+          type: 'error',
+          text1: errorResponse.errorMsg,
+          position: 'bottom',
         });
-    });
+        throw errorResponse;
+      }
+    } catch (err) {
+      if (err instanceof BaseResponse) {
+        throw err;
+      } else {
+        const errorResponse = new BaseResponse<T>();
+        errorResponse.errorCode = -1;
+        errorResponse.errorMsg = (err as Error).message;
+
+        const errs = errorResponse.errorMsg;
+        Toast.show({
+          type: 'info',
+          text1: errs,
+          position: 'bottom',
+        });
+        throw errorResponse;
+      }
+    }
+  }
+
+  static safeJsonParse<T>(json: any): T | null {
+    try {
+      return JSON.parse(JSON.stringify(json)) as T;
+    } catch (error) {
+      console.error('JSON parse error:', error);
+      return null;
+    }
   }
 
   static shared(): Network {
@@ -81,12 +101,12 @@ class Network {
 
   static get<T = any>(config: AxiosRequestConfig): Promise<BaseResponse<T>> {
     config.method = 'GET';
-    return Network.shared().request(config);
+    return Network.shared().request<T>(config);
   }
 
   static post<T = any>(config: AxiosRequestConfig): Promise<BaseResponse<T>> {
     config.method = 'POST';
-    return Network.shared().request(config);
+    return Network.shared().request<T>(config);
   }
 }
 

@@ -1,6 +1,7 @@
 import {makeAutoObservable} from 'mobx';
 
 class GlobalStore {
+  //全局请求loading展示状态
   loading = false;
 
   constructor() {
@@ -12,4 +13,4 @@ class GlobalStore {
   }
 }
 
-export default GlobalStore;
+export default new GlobalStore();

@@ -12,25 +12,24 @@ export enum LoadState {
 
 const PageLoading: React.FC<{
   loadingState: LoadState;
-  showLoading: boolean;
   onReload?: () => void;
-  content?: React.ReactNode;
-}> = ({loadingState = LoadState.LOADING, onReload, content}) => {
+  children?: React.ReactNode;
+}> = ({loadingState = LoadState.LOADING, onReload, children}) => {
   const commonContentView = () => {
     if (loadingState === LoadState.FAIL) {
       return (
         <Pressable onPress={onReload} style={stateStyle.pressContent}>
           <View style={stateStyle.content}>
-            <MaterialIcons name="sms-failed" color="black" size={20} />
-            <Text>加载错误</Text>
+            <MaterialIcons name="sms-failed" color="black" size={50} />
+            <Text style={stateStyle.tipText}>加载错误</Text>
           </View>
         </Pressable>
       );
     } else if (loadingState === LoadState.EMPTY) {
       return (
         <View style={stateStyle.content}>
-          <MaterialIcons name="hourglass-empty" color="black" size={20} />
-          <Text>暂无数据</Text>
+          <MaterialIcons name="hourglass-empty" color="black" size={50} />
+          <Text style={stateStyle.tipText}>暂无数据</Text>
         </View>
       );
     }
@@ -39,7 +38,7 @@ const PageLoading: React.FC<{
   if (loadingState === LoadState.FAIL || loadingState === LoadState.EMPTY) {
     return commonContentView();
   } else {
-    return <>{content}</>;
+    return <>{children}</>;
   }
 };
 
@@ -54,6 +53,11 @@ const stateStyle = StyleSheet.create({
 
   pressContent: {
     flex: 1,
+  },
+
+  tipText: {
+    fontSize: 20,
+    paddingTop: 20,
   },
 });
 

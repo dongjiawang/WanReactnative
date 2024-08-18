@@ -24,7 +24,7 @@ const MainPage = () => {
     <Tab.Navigator
       initialRouteName={Home}
       screenOptions={{
-        tabBarActiveTintColor: Colors.light.themeColor,
+        tabBarActiveTintColor: Colors.themeColor,
         tabBarInactiveTintColor: Colors.light.tab_unselect,
         headerShown: false,
       }}>
@@ -33,7 +33,8 @@ const MainPage = () => {
         component={HomePage}
         options={{
           tabBarLabel: '首页',
-          tabBarIcon: ({color, size}) => TabBarIcon({ color, size, name: 'home'}),
+          tabBarIcon: ({color, size}) =>
+            TabBarIcon({color, size, name: 'home'}),
         }}
       />
       <Tab.Screen
@@ -41,7 +42,8 @@ const MainPage = () => {
         component={QuestionPage}
         options={{
           tabBarLabel: '问答',
-          tabBarIcon: ({color, size}) => TabBarIcon({ color, size, name: 'chat-question'}),
+          tabBarIcon: ({color, size}) =>
+            TabBarIcon({color, size, name: 'chat-question'}),
         }}
       />
       <Tab.Screen
@@ -49,7 +51,8 @@ const MainPage = () => {
         component={TreePage}
         options={{
           tabBarLabel: '体系',
-          tabBarIcon: ({color, size}) => TabBarIcon({ color, size, name: 'file-tree'}),
+          tabBarIcon: ({color, size}) =>
+            TabBarIcon({color, size, name: 'file-tree'}),
         }}
       />
       <Tab.Screen
@@ -57,7 +60,8 @@ const MainPage = () => {
         component={MinePage}
         options={{
           tabBarLabel: '我的',
-          tabBarIcon: ({color, size}) => TabBarIcon({ color, size, name: 'account'}),
+          tabBarIcon: ({color, size}) =>
+            TabBarIcon({color, size, name: 'account'}),
         }}
       />
     </Tab.Navigator>

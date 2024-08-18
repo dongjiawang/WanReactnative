@@ -1,21 +1,23 @@
 import React from 'react';
 import {observer} from 'mobx-react-lite';
 import GlobalStore from '../store/GlobalStore';
-import {ActivityIndicator, StyleSheet, View} from 'react-native';
-import {Text} from 'react-native-elements';
-
-const globalStore = new GlobalStore();
+import {ActivityIndicator, Platform, StyleSheet, View} from 'react-native';
+import {colors, Text} from 'react-native-elements';
+import Colors from '../res/colors';
 
 const Loading: React.FC = observer(() => {
-  if (!globalStore.loading) {
+  if (!GlobalStore.loading) {
     return null;
   }
 
   return (
     <View style={styles.loadingContainer}>
       <View style={styles.loadingContentWrapper}>
-        <ActivityIndicator size="large" />
-        <Text>加载中...</Text>
+        <ActivityIndicator
+          size="large"
+          color={Platform.OS === 'android' ? Colors.themeColor : colors.grey1}
+        />
+        <Text style={styles.text}>加载中...</Text>
       </View>
     </View>
   );
@@ -39,6 +41,9 @@ const styles = StyleSheet.create({
     height: 100,
     backgroundColor: 'rgba(0, 0, 0, 0.2)',
     borderRadius: 10,
+  },
+  text: {
+    paddingTop: 5,
   },
 });
 

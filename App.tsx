@@ -12,7 +12,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {AppRouter} from './src/route/router';
 import StatusBarManager from './src/utils/StatusBarManager';
 import Toast from 'react-native-toast-message';
-import Loading from './src/component/loadingContainer';
+import Loading from './src/component/LoadingContainer';
 
 function App(): JSX.Element {
   // const isDarkMode = useColorScheme() === 'dark';
