@@ -77,11 +77,10 @@ const ArticleDetailPage = ({route}: NavigateProps<'articleDetail'>) => {
           allowsInlineMediaPlayback={true}
           scalesPageToFit={true}
           mixedContentMode="always"
-          javaScriptEnabled={true}
+          javaScriptEnabled={false}
           domStorageEnabled={true}
-          injectedJavaScriptForMainFrameOnly={true}
-          onNavigationStateChange={handleNavigationStateChange}
           contentInsetAdjustmentBehavior="automatic"
+          onNavigationStateChange={handleNavigationStateChange}
           onLoadProgress={event => {
             setProgress(event.nativeEvent.progress);
           }}

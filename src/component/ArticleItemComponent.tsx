@@ -89,6 +89,7 @@ const articleItemStyle = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     width: '100%',
+    alignItems: 'center',
   },
   BottomRow: {
     flex: 1,
